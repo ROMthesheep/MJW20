@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://cukgpeh8k0lyb"]
+
+[ext_resource type="Script" uid="uid://1gsqb7lu8ah4" path="res://Scripts/PaintSys/canvas.gd" id="1_wtcfe"]
+[ext_resource type="Shader" uid="uid://dmhqewt1da4uo" path="res://Shaders/USBCamera.gdshader" id="2_0e48y"]
+[ext_resource type="Texture2D" uid="uid://b23fvvxqlkych" path="res://icon.svg" id="3_epypp"]
+
+[sub_resource type="GDScript" id="GDScript_wtcfe"]
+resource_name = "paintHud"
+script/source = "extends Control
+
+func _ready() -> void:
+	var viewportWidth = get_viewport().size.x
+	var viewportHeight = get_viewport().size.y
+
+	var new_scale = viewportWidth / $Canvas.texture.get_size().x
+	$Canvas.set_position(Vector2(viewportWidth/2, viewportHeight/2))
+	$Canvas.set_scale(Vector2(new_scale * 0.7, new_scale))
+
+
+func _on_button_pressed() -> void:
+	var img = $Canvas.texture.get_image()
+	img.save_png(\"output/img.png\")
+"
+
+[sub_resource type="CameraTexture" id="CameraTexture_epypp"]
+
+[sub_resource type="CameraTexture" id="CameraTexture_0hol4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q6r6c"]
+shader = ExtResource("2_0e48y")
+shader_parameter/camera_y = SubResource("CameraTexture_0hol4")
+shader_parameter/camera_CbCr = SubResource("CameraTexture_epypp")
+
+[sub_resource type="GDScript" id="GDScript_kdubu"]
+resource_name = "WebCamShiet"
+script/source = "extends Sprite2D
+
+var camera: CameraFeed
+
+func _ready() -> void:
+	CameraServer.monitoring_feeds = true
+	var camera_extension := CameraServerExtension.new()
+	# Check camera permission
+	if camera_extension.permission_granted():
+		# All good
+		pass
+	else:
+		var _on_permission_result = func(granted: bool) -> void:
+			if not granted:
+				print(\"Camera access permission not granted\")
+				return
+		camera_extension.permission_result.connect(_on_permission_result)
+		camera_extension.request_permission()
+	
+	
+	camera = CameraServer.feeds()[0]
+	camera.feed_is_active = true
+	
+	var cam_tex_y = material.get_shader_parameter(\"camera_y\")
+	var cam_tex_CbCr = material.get_shader_parameter(\"camera_CbCr\")
+	
+	cam_tex_y.camera_feed_id = camera.get_id()
+	cam_tex_CbCr.camera_feed_id = camera.get_id()
+	
+	material.set_shader_parameter(\"camera_y\", cam_tex_y)
+	material.set_shader_parameter(\"camera_CbCr\", cam_tex_CbCr)
+
+func _process(delta: float) -> void:
+	camera.feed_is_active = true
+"
+
+[node name="PaintSystem" type="Control" unique_id=642995421]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_wtcfe")
+
+[node name="CameraShiet" type="Sprite2D" parent="." unique_id=1109693129]
+visible = false
+material = SubResource("ShaderMaterial_q6r6c")
+position = Vector2(793, 363.5)
+scale = Vector2(12.421875, 5.6328125)
+texture = ExtResource("3_epypp")
+script = SubResource("GDScript_kdubu")
+
+[node name="Canvas" type="Sprite2D" parent="." unique_id=573393288]
+script = ExtResource("1_wtcfe")
+
+[node name="Button" type="Button" parent="." unique_id=1480265862]
+layout_mode = 0
+offset_right = 484.0
+offset_bottom = 122.0
+text = "ey"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
