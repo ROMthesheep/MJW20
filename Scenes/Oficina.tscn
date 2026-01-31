@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://gb78sy7mo0ax"]
+
+[ext_resource type="PackedScene" uid="uid://cexcxx5mswina" path="res://Modelas/OfficeEnv (3).blend" id="2_egidt"]
+[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="2_yiqu2"]
+
+[sub_resource type="Environment" id="Environment_yiqu2"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yiqu2"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_egidt"]
+
+[node name="Oficina" type="Node3D" unique_id=1051064432]
+
+[node name="Character" parent="." unique_id=917555044 instance=ExtResource("2_yiqu2")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.764904, 0)
+default_reticle = "uid://coqpusufa8a6k"
+controls = {
+&"BACKWARD": "ui_down",
+&"CROUCH": "crouch",
+&"FORWARD": "ui_up",
+&"JUMP": "",
+&"LEFT": "ui_left",
+&"PAUSE": "ui_cancel",
+&"RIGHT": "ui_right",
+&"SPRINT": "sprint"
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=916584236]
+environment = SubResource("Environment_yiqu2")
+
+[node name="OfficeEnv (3)" parent="." unique_id=1575302398 instance=ExtResource("2_egidt")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1952393900]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.52479, 2.1458426, -9.703589)
+mesh = SubResource("CylinderMesh_yiqu2")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D" unique_id=1070504230]
+metadata/interactuable = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D" unique_id=1678435041]
+shape = SubResource("CylinderShape3D_egidt")

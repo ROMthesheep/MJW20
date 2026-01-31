@@ -1,0 +1,18 @@
+[remap]
+
+importer="com.timothyqiu.godot-csv-importer"
+type="Resource"
+uid="uid://b8v3l8376q45"
+path="res://.godot/imported/Dialogos - MJW20 - Hoja 1.csv-63355b2cc63d3a795f7b035b667c874d.res"
+
+[deps]
+
+source_file="res://Assets/Dialogos - MJW20 - Hoja 1.csv"
+dest_files=["res://.godot/imported/Dialogos - MJW20 - Hoja 1.csv-63355b2cc63d3a795f7b035b667c874d.res"]
+
+[params]
+
+delimiter=0
+headers=false
+detect_numbers=false
+force_float=true

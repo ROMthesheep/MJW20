@@ -79,7 +79,6 @@ grow_vertical = 2
 script = SubResource("GDScript_wtcfe")
 
 [node name="CameraShiet" type="Sprite2D" parent="." unique_id=1109693129]
-visible = false
 material = SubResource("ShaderMaterial_q6r6c")
 position = Vector2(793, 363.5)
 scale = Vector2(12.421875, 5.6328125)

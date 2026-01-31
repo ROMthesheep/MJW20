@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Empleado" format=3 uid="uid://dlc3t6bmgs7s8"]
+
+[ext_resource type="Script" uid="uid://cib18iu27wv1k" path="res://Resources/DDO/Empleado.gd" id="1_m6ivi"]
+
+[resource]
+script = ExtResource("1_m6ivi")
+name = "Mario"
+color = Color(0.6815331, 0.54916537, 0.38207507, 1)
+dialogs = Array[String](["Its me!", "Mario!", "@Este man esta mal", "jaja si"])
+metadata/_custom_type_script = "uid://cib18iu27wv1k"
