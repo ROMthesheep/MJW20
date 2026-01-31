@@ -175,9 +175,11 @@ func _process(_delta):
 func _physics_process(delta): # Most things happen here.
 	# raycast shiet
 	if %seeCast.is_colliding():
-		var target = %seeCast.get_collider()
-		if target.get_meta("interactuable"):
+		var target = %seeCast.get_collider().get_parent()
+		if target.has_method("interact"):
 			$UserInterface/InteractLabel.show()
+			if Input.is_action_just_pressed("interact"):
+				target.interact()
 	else:
 		$UserInterface/InteractLabel.hide()
 	# Gravity
@@ -489,7 +491,7 @@ func update_camera_fov():
 		CAMERA.fov = lerp(CAMERA.fov, 75.0, 0.3)
 
 func handle_pausing():
-	if Input.is_action_just_pressed(controls.PAUSE):
+	if Input.is_action_just_pressed(controls.PAUSE) and gameplayManager.gameState == gameplayManager.GameState.WANDERING:
 		# You may want another node to handle pausing, because this player may get paused too.
 		match Input.mouse_mode:
 			Input.MOUSE_MODE_CAPTURED:

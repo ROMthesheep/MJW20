@@ -3,23 +3,38 @@
 [ext_resource type="Script" uid="uid://1gsqb7lu8ah4" path="res://Scripts/PaintSys/canvas.gd" id="1_wtcfe"]
 [ext_resource type="Shader" uid="uid://dmhqewt1da4uo" path="res://Shaders/USBCamera.gdshader" id="2_0e48y"]
 [ext_resource type="Texture2D" uid="uid://b23fvvxqlkych" path="res://icon.svg" id="3_epypp"]
+[ext_resource type="Texture2D" uid="uid://kk1gpwqc27v7" path="res://Assets/PaintingHub/lapices fritos good.png" id="4_7x8qh"]
+[ext_resource type="Texture2D" uid="uid://dowy4p2mhb8ef" path="res://Assets/PaintingHub/Botón terminar bueno..png" id="4_tfcj2"]
+[ext_resource type="Texture2D" uid="uid://wb21dr3ddpvm" path="res://Assets/ES TRANS 👏👏.tres" id="5_pv8sm"]
+[ext_resource type="Texture2D" uid="uid://cwvh46yhqryxv" path="res://Assets/PaintingHub/binder frito.png" id="7_52hci"]
+[ext_resource type="Texture2D" uid="uid://bvboceaxa83ur" path="res://Assets/PaintingHub/sellos fristos good.png" id="8_emlcn"]
 
 [sub_resource type="GDScript" id="GDScript_wtcfe"]
 resource_name = "paintHud"
-script/source = "extends Control
+script/source = "class_name PaintHUB extends Control
+
+@export var empleado: Empleado
 
 func _ready() -> void:
-	var viewportWidth = get_viewport().size.x
-	var viewportHeight = get_viewport().size.y
-
-	var new_scale = viewportWidth / $Canvas.texture.get_size().x
-	$Canvas.set_position(Vector2(viewportWidth/2, viewportHeight/2))
-	$Canvas.set_scale(Vector2(new_scale * 0.7, new_scale))
-
+	pass
+	#var viewportWidth = get_viewport().size.x
+	#var viewportHeight = get_viewport().size.y
+#
+	#var new_scale = viewportWidth / $Canvas.texture.get_size().x
+	#$Canvas.set_position(Vector2(viewportWidth/2, viewportHeight/2))
+	#$Canvas.set_scale(Vector2(new_scale * 0.5, new_scale * 0.5))
 
 func _on_button_pressed() -> void:
 	var img = $Canvas.texture.get_image()
 	img.save_png(\"output/img.png\")
+
+
+func _on_texture_button_pressed() -> void:
+	var img = ($Canvas as Sprite2D).texture
+	empleado.cara_pintada = img
+	gameplayManager.startResolution.emit(empleado.name)
+	gameplayManager.switchFaces.emit(empleado.name)
+	queue_free()
 "
 
 [sub_resource type="CameraTexture" id="CameraTexture_epypp"]
@@ -74,11 +89,16 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -38.0
+offset_top = 3.0
+offset_right = -38.0
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_wtcfe")
 
 [node name="CameraShiet" type="Sprite2D" parent="." unique_id=1109693129]
+visible = false
 material = SubResource("ShaderMaterial_q6r6c")
 position = Vector2(793, 363.5)
 scale = Vector2(12.421875, 5.6328125)
@@ -86,7 +106,9 @@ texture = ExtResource("3_epypp")
 script = SubResource("GDScript_kdubu")
 
 [node name="Canvas" type="Sprite2D" parent="." unique_id=573393288]
+position = Vector2(960, 540)
 script = ExtResource("1_wtcfe")
+paint_color = Color(0, 0, 0, 1)
 
 [node name="Button" type="Button" parent="." unique_id=1480265862]
 layout_mode = 0
@@ -94,4 +116,181 @@ offset_right = 484.0
 offset_bottom = 122.0
 text = "ey"
 
+[node name="TextureButton" type="TextureButton" parent="." unique_id=778320240]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.74
+anchor_top = 0.72200006
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.8000488
+offset_top = 165.23993
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("4_tfcj2")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="LapicesFritosGood" type="Sprite2D" parent="." unique_id=1370071068]
+position = Vector2(1716, 319.00003)
+rotation = -3.1415925
+scale = Vector2(0.21133445, 0.21133444)
+texture = ExtResource("4_7x8qh")
+metadata/_edit_lock_ = true
+
+[node name="blackCrayonButton" type="TextureButton" parent="LapicesFritosGood" unique_id=1605523014]
+offset_left = -895.5006
+offset_top = 1164.032
+offset_right = 836.8323
+offset_bottom = 1395.6519
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="GoldCrayonButton" type="TextureButton" parent="LapicesFritosGood" unique_id=1545051374]
+offset_left = -895.5006
+offset_top = 953.2501
+offset_right = 812.2064
+offset_bottom = 1156.7134
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="GrayCrayonButton" type="TextureButton" parent="LapicesFritosGood" unique_id=1823466354]
+offset_left = -870.6579
+offset_top = 738.1668
+offset_right = 837.04913
+offset_bottom = 941.63007
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="BrownCrayonButton" type="TextureButton" parent="LapicesFritosGood" unique_id=1593353764]
+offset_left = -875.3898
+offset_top = 506.3068
+offset_right = 832.31726
+offset_bottom = 709.77
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="PurpleCrayonButton" type="TextureButton" parent="LapicesFritosGood" unique_id=149526226]
+offset_left = -846.9988
+offset_top = 279.17865
+offset_right = 860.70825
+offset_bottom = 482.64188
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="LightBlueCrayonButton" type="TextureButton" parent="LapicesFritosGood" unique_id=1713734022]
+offset_left = -880.12164
+offset_top = 33.12317
+offset_right = 827.5854
+offset_bottom = 236.5864
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="DarkGreenCrayonButton" type="TextureButton" parent="LapicesFritosGood" unique_id=421177535]
+offset_left = -870.658
+offset_top = -189.27313
+offset_right = 837.049
+offset_bottom = 14.190094
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="LightGreenCrayonButton" type="TextureButton" parent="LapicesFritosGood" unique_id=224312036]
+offset_left = -865.9262
+offset_top = -425.86493
+offset_right = 841.7808
+offset_bottom = -222.4017
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="RedCrayonButton" type="TextureButton" parent="LapicesFritosGood" unique_id=1307521881]
+offset_left = -870.6581
+offset_top = -662.4567
+offset_right = 837.04895
+offset_bottom = -458.9935
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="OranjeCrayonButton" type="TextureButton" parent="LapicesFritosGood" unique_id=281555454]
+offset_left = -846.99896
+offset_top = -889.58484
+offset_right = 860.70807
+offset_bottom = -686.1216
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="YellowCrayonButton" type="TextureButton" parent="LapicesFritosGood" unique_id=138503470]
+offset_left = -846.999
+offset_top = -1126.1768
+offset_right = 860.708
+offset_bottom = -922.7135
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="WhiteCrayonButton" type="TextureButton" parent="LapicesFritosGood" unique_id=707778578]
+offset_left = -856.4627
+offset_top = -1362.7686
+offset_right = 851.2443
+offset_bottom = -1159.3053
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="BinderFrito" type="Sprite2D" parent="." unique_id=426277822]
+position = Vector2(256, 921.99994)
+scale = Vector2(0.15181586, 0.15181586)
+texture = ExtResource("7_52hci")
+
+[node name="SellosFristosGood" type="Sprite2D" parent="." unique_id=1243060755]
+position = Vector2(231, 273)
+scale = Vector2(0.45821726, 0.4582173)
+texture = ExtResource("8_emlcn")
+
+[node name="SelloFlorButton" type="TextureButton" parent="SellosFristosGood" unique_id=1530287386]
+offset_left = -303.34955
+offset_top = -488.85107
+offset_right = -30.553192
+offset_bottom = -213.87231
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="SelloPatitaButton" type="TextureButton" parent="SellosFristosGood" unique_id=473442086]
+offset_left = 41.465057
+offset_top = -462.6626
+offset_right = 314.2614
+offset_bottom = -187.68384
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="SelloMariquitaButton" type="TextureButton" parent="SellosFristosGood" unique_id=1460188064]
+offset_left = -303.34955
+offset_top = -144.03644
+offset_right = -30.553192
+offset_bottom = 130.94232
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="SelloSolecitoButton" type="TextureButton" parent="SellosFristosGood" unique_id=1652865496]
+offset_left = 41.465057
+offset_top = -130.94225
+offset_right = 314.2614
+offset_bottom = 144.03651
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="SelloConejitoButton" type="TextureButton" parent="SellosFristosGood" unique_id=165507388]
+offset_left = -316.44376
+offset_top = 213.87236
+offset_right = -43.6474
+offset_bottom = 488.85114
+texture_normal = ExtResource("5_pv8sm")
+
+[node name="SelloMonkeButton" type="TextureButton" parent="SellosFristosGood" unique_id=2113835833]
+offset_left = 41.465027
+offset_top = 202.96051
+offset_right = 314.26138
+offset_bottom = 477.93927
+texture_normal = ExtResource("5_pv8sm")
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="LapicesFritosGood/blackCrayonButton" to="Canvas" method="_on_black_crayon_button_pressed"]
+[connection signal="pressed" from="LapicesFritosGood/GoldCrayonButton" to="Canvas" method="_on_gold_crayon_button_pressed"]
+[connection signal="pressed" from="LapicesFritosGood/GrayCrayonButton" to="Canvas" method="_on_gray_crayon_button_pressed"]
+[connection signal="pressed" from="LapicesFritosGood/BrownCrayonButton" to="Canvas" method="_on_brown_crayon_button_pressed"]
+[connection signal="pressed" from="LapicesFritosGood/PurpleCrayonButton" to="Canvas" method="_on_purple_crayon_button_pressed"]
+[connection signal="pressed" from="LapicesFritosGood/LightBlueCrayonButton" to="Canvas" method="_on_light_blue_crayon_button_pressed"]
+[connection signal="pressed" from="LapicesFritosGood/DarkGreenCrayonButton" to="Canvas" method="_on_dark_green_crayon_button_pressed"]
+[connection signal="pressed" from="LapicesFritosGood/LightGreenCrayonButton" to="Canvas" method="_on_light_green_crayon_button_pressed"]
+[connection signal="pressed" from="LapicesFritosGood/RedCrayonButton" to="Canvas" method="_on_red_crayon_button_pressed"]
+[connection signal="pressed" from="LapicesFritosGood/OranjeCrayonButton" to="Canvas" method="_on_oranje_crayon_button_pressed"]
+[connection signal="pressed" from="LapicesFritosGood/YellowCrayonButton" to="Canvas" method="_on_yellow_crayon_button_pressed"]
+[connection signal="pressed" from="LapicesFritosGood/WhiteCrayonButton" to="Canvas" method="_on_white_crayon_button_pressed"]
+[connection signal="pressed" from="SellosFristosGood/SelloFlorButton" to="Canvas" method="_on_sello_flor_button_pressed"]
+[connection signal="pressed" from="SellosFristosGood/SelloPatitaButton" to="Canvas" method="_on_sello_patita_button_pressed"]
+[connection signal="pressed" from="SellosFristosGood/SelloMariquitaButton" to="Canvas" method="_on_sello_mariquita_button_pressed"]
+[connection signal="pressed" from="SellosFristosGood/SelloSolecitoButton" to="Canvas" method="_on_sello_solecito_button_pressed"]
+[connection signal="pressed" from="SellosFristosGood/SelloConejitoButton" to="Canvas" method="_on_sello_conejito_button_pressed"]
+[connection signal="pressed" from="SellosFristosGood/SelloMonkeButton" to="Canvas" method="_on_sello_monke_button_pressed"]

@@ -6,5 +6,5 @@
 script = ExtResource("1_m6ivi")
 name = "Mario"
 color = Color(0.6815331, 0.54916537, 0.38207507, 1)
-dialogs = Array[String](["Its me!", "Mario!", "@Este man esta mal", "jaja si"])
+dialogs = Array[String](["Its me!", "Mario!", "@Este man esta mal", "jaja si", "$Lo que tengo que aguantar es loco"])
 metadata/_custom_type_script = "uid://cib18iu27wv1k"

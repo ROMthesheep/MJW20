@@ -1,10 +1,31 @@
-[gd_scene format=3 uid="uid://dnnka5th1gldj"]
+[gd_scene format=3 uid="uid://ddg7si1jejle0"]
 
-[ext_resource type="Texture2D" uid="uid://ocqr4kaowgws" path="res://icon.svg" id="1_mtyf4"]
+[ext_resource type="Texture2D" uid="uid://b23fvvxqlkych" path="res://icon.svg" id="1_mtyf4"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="GDScript" id="GDScript_myinc"]
+script/source = "class_name Test extends Node2D
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+
+
+func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	print(\"pato\")
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_njov2"]
+radius = 103.17461
+
+[node name="Node2D" type="Node2D" unique_id=835865935]
+script = SubResource("GDScript_myinc")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=403994570]
 texture = ExtResource("1_mtyf4")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=76085182]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1628677862]
+position = Vector2(642, 368)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2074450156]
+shape = SubResource("CircleShape2D_njov2")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

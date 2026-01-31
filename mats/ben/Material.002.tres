@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cji6ymdy51hpu"]
+
+[ext_resource type="Texture2D" uid="uid://bouo1nbxpok33" path="res://Modelas/pj1_Benhorne_benpixel.png" id="1_wp6j1"]
+
+[resource]
+resource_name = "Material.002"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_wp6j1")
+roughness = 0.5
